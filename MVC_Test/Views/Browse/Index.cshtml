@@ -1,0 +1,31 @@
+﻿@using Project.Models
+@using  Project.Services
+@model  BrowseModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Browse</h1>
+
+<div class="card-deck">
+    @foreach (ItemModel item in ViewBag.List)
+    {
+        //string imgSrc = @Model.SaveImage(item);
+        string imgSrc = @Model.SaveImage(item);
+        <div class="card m-3" style="min-width:18rem; max-width:30.5%">
+            <div class="card-header">
+                <h2>@item.Name</h2>
+            </div>
+            <div class="card-body" style="min-height:18rem;">
+                <img class="card-img-top imageThumbnail" src="@imgSrc" asp-append-version="true">
+            </div>
+            <div class="card-body">
+                <h3>@item.Description</h3>
+            </div>
+            <div class="card-footer">
+                <h2>Estimated Value: @item.Price</h2>
+            </div>
+        </div>
+
+    }
+</div>

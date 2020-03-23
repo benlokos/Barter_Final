@@ -1,0 +1,37 @@
+﻿@using Project.Models
+@model BrowseModel
+@{
+    ViewData["Title"] = "Browse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>My Items</h1>
+
+<a href="@Url.Action("Create", "My_Items")">
+    <button class="btn btn-primary">Post New Item</button>
+</a>
+
+<div class="card-deck">
+    @foreach (ItemModel item in ViewBag.List)
+    {
+        string imgSrc = @Model.SaveImage(item);
+        <div class="card m-3" style="min-width:18rem; max-width:30.5%">
+            <div class="card-header">
+                <h2>@item.Name</h2>
+            </div>
+            <div class="card-body" style="min-height:18rem;">
+                <img class="card-img-top imageThumbnail" src="@imgSrc" asp-append-version="true">
+            </div>
+            <div class="card-body">
+                <h3>@item.Description</h3>
+            </div>
+            <div class="card-footer">
+                <h2>Estimated Value: @item.Price</h2>
+            </div>
+            <div class="card-footer">
+                <a asp-page="" class="btn btn-primary m-1" style="min-width:7rem">Edit</a>
+                <a asp-controller="Remove" asp-action="Index" asp-route-ID="@item.ID" class="btn btn-primary m-1" style="min-width:7rem">Remove</a>
+            </div>
+        </div>
+    }
+</div>

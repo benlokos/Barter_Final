@@ -1,0 +1,42 @@
+﻿@model MVC_Test.Models.ItemSubmissionModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Internal.Name" class="control-label"></label>
+                <input asp-for="Internal.Name" class="form-control" />
+                <span asp-validation-for="Internal.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Internal.Description" class="control-label"></label>
+                <input asp-for="Internal.Description" class="form-control" />
+                <span asp-validation-for="Internal.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Internal.Price" class="control-label"></label>
+                <input asp-for="Internal.Price" class="form-control" />
+                <span asp-validation-for="Internal.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Photo" class="control-label"></label>
+                <input asp-for="Photo" type="file" class="form-control" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

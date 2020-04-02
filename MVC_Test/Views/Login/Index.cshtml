@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>Log in to access Barter!</p>
+
+<form action="/my-handling-form-page" method="post">
+    <ul>
+        <li>
+            <label for="username">Name:</label>
+            <input type="text" id="name" name="user_name">
+        </li>
+        <li>
+            <label for="passwd">Password:</label>
+            <input type="text" id="passwd" name="password">
+        </li>
+    </ul>
+</form>

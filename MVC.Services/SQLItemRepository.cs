@@ -7,10 +7,12 @@ namespace Project.Services
 {
     public class SQLItemRepository : ItemRepository
     {
+        private readonly ManualItemRepo ManRepo;
         private readonly AppDbContext Context;
         public SQLItemRepository(AppDbContext context)
         {
             Context = context;
+            ManRepo = new ManualItemRepo("server=10.12.227.17,1433;database=Barter_MVC;Persist Security Info=True;User ID=Admin;Password=p@ssw0d");
         }
 
         public ItemModel Add(ItemModel newItem)
@@ -50,6 +52,27 @@ namespace Project.Services
             Context.SaveChanges();
             return updatedItem;
         }
+
+        public IEnumerable<ItemModel> GetItemUnderPrice(int i)
+        {
+            return ManRepo.GetItemUnderPrice(i);
+        }
+
+        public IEnumerable<ItemModel> GetItemOverPrice(int i)
+        {
+            return ManRepo.GetItemOverPrice(i);
+        }
+
+        public IEnumerable<ItemModel> GetItemPriceRange(int lower, int higher)
+        {
+            return ManRepo.GetItemPriceRange(lower, higher);
+        }
+
+        public IEnumerable<ItemModel> GetItemOwner(int owner)
+        {
+            return ManRepo.GetItemOwner(owner);
+        }
+
 
     }
 }

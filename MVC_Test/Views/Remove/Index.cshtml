@@ -31,7 +31,7 @@
         </dl>
 
         <form asp-action="Index">
-            <a asp-controller="Remove" asp-action="Delete" asp-route-ID="@Model.Item.ID" class="btn btn-danger" /> Delete
+            <a asp-controller="Remove" asp-action="Delete" asp-route-Item="@Model.Item" class="btn btn-danger" /> Delete
             <a asp-controller="My_Items" asp-action="Index">   Back to List</a>
         </form>
     </div>

@@ -33,7 +33,7 @@ namespace MVC_Test.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-
+            Console.WriteLine("Create HttpGet");
             return View() ;
         }
 

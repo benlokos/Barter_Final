@@ -38,7 +38,7 @@ namespace MVC_Test.Controllers
             Console.WriteLine($"ID in Delete:  {ID}");
             ItemModel Item = Repo.Delete(ID);
             if (null != Item) ViewBag.Message = "Item Deleted Successfully";
-            else ViewBag.Argument = "Item could not be deleted.";
+            else ViewBag.Message = "Item could not be deleted.";
             Image.RemoveImage(Item, webHostEnvironment);
             return View();
         }

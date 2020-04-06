@@ -12,6 +12,7 @@ namespace MVC_Test.Models
     public class BrowseModel
     {
         private readonly IWebHostEnvironment webHostEnvironment;
+        
         public BrowseModel(IWebHostEnvironment webHostEnvironment)
         {
             this.webHostEnvironment = webHostEnvironment;

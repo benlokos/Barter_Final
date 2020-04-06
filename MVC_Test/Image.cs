@@ -18,7 +18,7 @@ namespace MVC_Test
                 var memoryStream = new MemoryStream();
                 try
                 {
-                    Photo.CopyToAsync(memoryStream);
+                    Photo.CopyTo(memoryStream);
                     Item.Photo = memoryStream.ToArray();
                 }
                 finally
@@ -31,6 +31,7 @@ namespace MVC_Test
             Console.WriteLine($"ItemPhoto is {Item.Photo.Length} long.");
             Console.WriteLine("----------------------------");
         }
+
 
         public static bool RemoveImage(ItemModel item, IWebHostEnvironment webHostEnvironment)
         {
@@ -69,6 +70,23 @@ namespace MVC_Test
                 if (fileStream != null) fileStream.Dispose();
             }
             return "~/images/" + photoName;
+        }
+
+        /**
+      * Checks whether or not required fields for this item are filled
+      * Required fields for this check are:
+      * Name, Description, Price
+      * @param item the item to check
+      * @ return whether or not all necessary fields are filled with valid values
+      */
+        public static bool IsValid(ItemModel item)
+        {
+            if (!String.IsNullOrEmpty(item.ID))
+                if (!String.IsNullOrEmpty(item.Name))
+                    if (!String.IsNullOrEmpty(item.Description))
+                        if (0 < (item.Price))
+                            return true;
+            return false;
         }
     }
 }

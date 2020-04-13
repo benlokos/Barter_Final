@@ -22,7 +22,7 @@ namespace Project.Services.Migrations
             modelBuilder.Entity("Project.Models.ItemModel", b =>
                 {
                     b.Property<string>("ID")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");

@@ -26,6 +26,9 @@ namespace MVC_Test
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Sets a default user at random
+            IdGenerator.SetRandomUser();
+            //
             services.AddAuthentication()
                .AddGoogle(options =>
                {
@@ -38,8 +41,10 @@ namespace MVC_Test
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ItemDBConnection"));
             });
+            services.AddRazorPages();
             services.AddControllersWithViews();
-            services.AddScoped<ItemRepository, SQLItemRepository>();
+            //services.AddScoped<ItemRepository, SQLItemRepository>();
+            services.AddScoped<ItemRepository, ManualItemRepo>(_ => new ManualItemRepo(Configuration.GetConnectionString("ItemDBConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,9 +69,11 @@ namespace MVC_Test
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
             });
     
         }

@@ -7,12 +7,13 @@ namespace Project.Models
 {
     public class ItemModel
     {
+        public string ID { set;get; }
         public string Name { set; get; }
-        public string ID { set; get; }
         public string Description { set; get; }
-        public string OwnerId { set; get; }
+        public TraderModel OwnerId { set; get; }
         public int Price { set; get; }
         public byte[] Photo{ set; get; }
+        public List<TagModel> Tags { set; get; }
 
         public bool IsValidItem()
         {

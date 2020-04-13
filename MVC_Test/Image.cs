@@ -11,6 +11,7 @@ namespace MVC_Test
 {
     public class Image
     {
+               
         public static void ImageUpload(ItemModel Item, IFormFile Photo)
         {
             if (Photo != null)
@@ -39,7 +40,7 @@ namespace MVC_Test
             string path = Path.Combine(webHostEnvironment.WebRootPath, "images");
             string photoName = item.ID + ".jpg";
             path = Path.Combine(path, photoName);
-            
+
             if (!System.IO.File.Exists(path)) return false;
 
             File.Delete(path);
@@ -88,5 +89,8 @@ namespace MVC_Test
                             return true;
             return false;
         }
+
+
+        
     }
 }

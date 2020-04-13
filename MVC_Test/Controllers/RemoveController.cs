@@ -26,15 +26,13 @@ namespace MVC_Test.Controllers
         }
         public IActionResult Index()
         {
-            Console.WriteLine($"In Index... ID: {ID}");
             ItemModel Item = Repo.GetItem(ID);
             if (Item == null) Console.WriteLine("Item to delete is Null");
             return View(new RemoveModel(webHostEnvironment, Item));
         }
 
-        public IActionResult Delete(string ID)
+        public IActionResult Delete()
         {
-            if (String.IsNullOrEmpty(ID)) Console.WriteLine("String ID is Null");
             Console.WriteLine($"ID in Delete:  {ID}");
             ItemModel Item = Repo.Delete(ID);
             if (null != Item) ViewBag.Message = "Item Deleted Successfully";

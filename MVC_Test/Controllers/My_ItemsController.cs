@@ -41,7 +41,9 @@ namespace MVC_Test.Controllers
         public ActionResult Create(ItemSubmissionModel Model)
         {
             //Set unique ID for this item
-            Model.Internal.ID = Model.Internal.Name + Model.Internal.Price;
+            String id = (new IdGenerator().GenerateUniqueID(20));
+            Console.WriteLine($"Generated id: {id}");
+            Model.Internal.ID = id;
             //Is going to change later on
             Console.WriteLine($"Id: {Model.Internal.ID}");
             Console.WriteLine($"Name: {Model.Internal.Name}");

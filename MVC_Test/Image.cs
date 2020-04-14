@@ -11,6 +11,7 @@ namespace MVC_Test
 {
     public class Image
     {
+               
         public static void ImageUpload(ItemModel Item, IFormFile Photo)
         {
             if (Photo != null)
@@ -18,7 +19,7 @@ namespace MVC_Test
                 var memoryStream = new MemoryStream();
                 try
                 {
-                    Photo.CopyToAsync(memoryStream);
+                    Photo.CopyTo(memoryStream);
                     Item.Photo = memoryStream.ToArray();
                 }
                 finally
@@ -32,13 +33,14 @@ namespace MVC_Test
             Console.WriteLine("----------------------------");
         }
 
+
         public static bool RemoveImage(ItemModel item, IWebHostEnvironment webHostEnvironment)
         {
             if (item == null) return false;
             string path = Path.Combine(webHostEnvironment.WebRootPath, "images");
             string photoName = item.ID + ".jpg";
             path = Path.Combine(path, photoName);
-            
+
             if (!System.IO.File.Exists(path)) return false;
 
             File.Delete(path);
@@ -70,5 +72,25 @@ namespace MVC_Test
             }
             return "~/images/" + photoName;
         }
+
+        /**
+      * Checks whether or not required fields for this item are filled
+      * Required fields for this check are:
+      * Name, Description, Price
+      * @param item the item to check
+      * @ return whether or not all necessary fields are filled with valid values
+      */
+        public static bool IsValid(ItemModel item)
+        {
+            if (!String.IsNullOrEmpty(item.ID))
+                if (!String.IsNullOrEmpty(item.Name))
+                    if (!String.IsNullOrEmpty(item.Description))
+                        if (0 < (item.Price))
+                            return true;
+            return false;
+        }
+
+
+        
     }
 }

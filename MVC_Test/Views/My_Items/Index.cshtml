@@ -29,7 +29,7 @@
                 <h2>Estimated Value: @item.Price</h2>
             </div>
             <div class="card-footer">
-                <a asp-page="" class="btn btn-primary m-1" style="min-width:7rem">Edit</a>
+                <a asp-controller="Edit" asp-action="Index" asp-route-ID="@item.ID" class="btn btn-primary m-1" style="min-width:7rem">Edit</a>
                 <a asp-controller="Remove" asp-action="Index" asp-route-ID="@item.ID" class="btn btn-primary m-1" style="min-width:7rem">Remove</a>
             </div>
         </div>

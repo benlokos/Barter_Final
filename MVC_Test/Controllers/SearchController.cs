@@ -2,92 +2,50 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using MVC_Test.Models;
+using Project.Models;
+using Project.Services;
 
 namespace MVC_Test.Controllers
 {
     public class SearchController : Controller
     {
-        // GET: Search
-        public ActionResult Index()
+        private readonly ItemRepository Repo;
+        private readonly IWebHostEnvironment Env;
+
+        public SearchController(ItemRepository Repo, IWebHostEnvironment Env)
         {
-            return View();
+            this.Repo = Repo;
+            this.Env = Env;
         }
 
-        // GET: Search/Details/5
-        public ActionResult Details(int id)
+
+        public IActionResult Index()
         {
-            return View();
+            SearchModel model = new SearchModel();
+            model.Populate(Repo.GetAllItems(), Env);
+            return View(model);
         }
 
-        // GET: Search/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Search/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Index(SearchModel model)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            if (model == null) Console.WriteLine("HttpPost model is Null");
+            Console.WriteLine($"SearchString is {model.SearchStr}");
+            List<ItemModel> list = new List<ItemModel>();
+            foreach(ItemModel it in Repo.GetItemPriceRange(model.LowestPrice, model.HighestPrice)){
+                if (String.IsNullOrEmpty(model.SearchStr) || it.Name.IndexOf(model.SearchStr) >= 0)
+                {
+                    list.Add(it);
+                }
+            }
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            model.Populate(list, Env);
+            return View(model);
         }
 
-        // GET: Search/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: Search/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Search/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Search/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

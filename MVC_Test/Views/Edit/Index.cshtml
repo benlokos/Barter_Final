@@ -1,0 +1,43 @@
+﻿@model MVC_Test.Models.EditModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit Item @Model.Item.Name</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-route-ID="@Model.ID" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Item.Name" class="control-label"></label>
+                <input asp-for="@Model.Item.Name" class="form-control" placeholder="@Model.Item.Name" />
+                <span asp-validation-for="@Model.Item.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item.Description" class="control-label"></label>
+                <input asp-for="@Model.Item.Description" class="form-control" placeholder="@Model.Item.Description" />
+                <span asp-validation-for="@Model.Item.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Item.Price" class="control-label"></label>
+                <input asp-for="@Model.Item.Price" class="form-control" placeholder="@Model.Item.Price"/>
+                <span asp-validation-for="@Model.Item.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Photo" class="control-label"></label>
+                <input asp-for="@Model.Photo" type="file" class="form-control" />
+                <span asp-validation-for="@Model.Photo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp->Back to List</a>
+</div>
+

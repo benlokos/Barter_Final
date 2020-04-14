@@ -9,8 +9,11 @@ namespace Project.Models
         public string ID { set; get; }
         public string FirstName { set; get; }
         public string LastName{ set; get; }
-        public AdressModel Address { set; get; }
+        public AddressModel Address { set; get; }
         public double rating;
+        public byte[] Photo { set; get; }
+        
+        public TraderModel() { }
 
         public TraderModel(string ID, string FirstName, string LastName)
         {

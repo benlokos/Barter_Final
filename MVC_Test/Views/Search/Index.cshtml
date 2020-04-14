@@ -8,17 +8,12 @@
 
 <h1>Search</h1>
 <form method="post">
-    <div class="form-inline">
-        <label asp-for="@Model.LowestPrice" class="control-label"></label>
-        <input asp-for="@Model.LowestPrice" class="form-control" />
-    </div>
-    <div class="form-inline">
-        <label asp-for="@Model.HighestPrice" class="control-label"></label>
-        <input asp-for="@Model.HighestPrice" class="form-control" />
-    </div>
-    <div class="m-md-4 mt-0 ml-0">
-        <input class="form-control" asp-for="@Model.SearchStr" type="search" placeholder="Search" aria-label="Search" />
-        <input class="m" type="submit"/>
+    
+    <div class="search-box">
+        <input class="search-txt"  type="text" asp-for="@Model.SearchStr" placeholder="Type to search">
+        <a class="search-btn">
+            <i class="fas fa-search"></i>
+        </a>
     </div>
  
 </form>
@@ -36,7 +31,7 @@
             <div class="card-header">
                 <h2>@item.Name</h2>
             </div>
-            <div class="card-body" style="min-height:12rem; max-height= 15rem">
+            <div class="card-body" style="min-height:12rem; max-height: 15rem">
                 <img class="card-img-top imageThumbnail" src="@photoPath" asp-append-version="true">
             </div>
             <div class="card-body">

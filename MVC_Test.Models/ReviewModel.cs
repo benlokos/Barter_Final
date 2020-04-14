@@ -8,8 +8,8 @@ namespace Project.Models
     {
         public string ID { set; get; }
         public TraderModel Author { set; get; }
-        public ItemModel Item_ID { set; get; }
+        public ItemModel Item { set; get; }
         public string Review { set; get; }
-        public double Stats { set; get; }
+        public double Stars { set; get; }
     }
 }

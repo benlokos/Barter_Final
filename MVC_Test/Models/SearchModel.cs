@@ -16,13 +16,11 @@ namespace MVC_Test.Models
         public int LowestPrice { set; get; }
         public int HighestPrice { set; get; }
         private IWebHostEnvironment Env { set; get; }
-
-
         public IEnumerable<ItemModel> ViewList { private set; get; }
 
         public SearchModel()
         {
-            SearchStr = "*";
+            //SearchStr = "*";
             LowestPrice = 0;
             HighestPrice = Int32.MaxValue;
         }

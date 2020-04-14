@@ -8,16 +8,29 @@ using Project.Services;
 using NUnit.Framework;
 using System.Data;
 
-namespace Project.Services
+namespace Project.Services.Repos
 {
-    public class ItemRepo: ItemRepository
+    public class ItemRepo
     {
+        private static ItemRepo Instance;
+        
+        public static void SetInstance(string ConnectionString)
+        {
+            if (Instance == null) Instance = new ItemRepo(ConnectionString);
+        }
+
+        public static ItemRepo GetInstance()
+        {
+            return Instance;
+        }
+     
         private readonly SqlConnection sqlConnection;
 
         public ItemRepo(string ConnectionString)
         {
             sqlConnection = new SqlConnection(ConnectionString);
         }
+
         private IEnumerable<ItemModel> ItemCondition(string condition)
 
         {
@@ -38,10 +51,12 @@ namespace Project.Services
                         curr.ID = reader["ID"] as string;
                         curr.Name = reader["Name"] as string; 
                         curr.Description = reader["Description"] as string;
-                        curr.OwnerId = reader["OwnerId"] as TraderModel;
+                        string owner = reader["OwnerId"] as string;
+                        curr.OwnerId = TraderRepo.GetInstance().GetById(owner);
                         string price = reader["Price"] + "";
                         curr.Price = Int32.Parse(price);
                         curr.Photo = reader["Photo"] as byte[];
+                        curr.Tags = TagAssocRepo.GetInstance().ItemTags(curr.ID);
                         MyList.Add(curr);   
                     }   
                 }   
@@ -51,41 +66,11 @@ namespace Project.Services
         }
 
 
-        public IEnumerable<ItemModel> GetItemUnderPrice(int i)
-        {
-            string condition = "Price < " + i;
-            return ItemCondition(condition);
-        }
-
-        public IEnumerable<ItemModel> GetItemOverPrice(int i)
-        {
-            string condition = "Price > " + i;
-            return ItemCondition(condition);
-        }
-
-        public IEnumerable<ItemModel> GetItemPriceRange(int lower, int higher)
-        {
-            string condition = "Price < " + higher + " AND Price > " + lower;
-            return ItemCondition(condition);
-        }
-
-        public IEnumerable<ItemModel> GetItemOwner(int owner)
-        {
-            string condition = "OwnerId = \'" + owner+"\'";
-            return ItemCondition(condition);
-        }
-
-
-        IEnumerable<ItemModel> ItemRepository.GetAllItems()
-        {
-            return ItemCondition("");
-        }
-
-        ItemModel ItemRepository.GetItem(string id)
+       public ItemModel GetItem(string id)
         {
             ItemModel item = null;
             int i = 0;
-            foreach (ItemModel it in ItemCondition("ID = \'" + id+"\'"))
+            foreach (ItemModel it in ItemCondition("ID = \'" + id + "\'"))
             {
                 i++;
                 item = it;
@@ -95,16 +80,11 @@ namespace Project.Services
             return item;
         }
 
-        ItemModel ItemRepository.Update(ItemModel updatedItem)
-        {
-            throw new NotImplementedException();
-        }
-
-        ItemModel ItemRepository.Add(ItemModel newItem)
+        public ItemModel Add(ItemModel newItem)
         {
             if (newItem == null)
             {
-                Console.WriteLine("Item Is null in ManualItemRepo.");
+                Console.WriteLine("Item Is null in ItemRepo.");
                 return null;
             }
        
@@ -116,7 +96,7 @@ namespace Project.Services
                 cmd.Parameters.Add("@ID", SqlDbType.VarChar,20).Value = newItem.ID;
                 cmd.Parameters.Add("@Name", SqlDbType.NVarChar).Value = newItem.Name;
                 cmd.Parameters.Add("@Description", SqlDbType.NVarChar).Value = newItem.Description;
-                cmd.Parameters.Add("@OwnerId", SqlDbType.NVarChar).Value = "aaaaaaaaaaaaaaaaaaaa";
+                cmd.Parameters.Add("@OwnerId", SqlDbType.NVarChar).Value = newItem.OwnerId.ID;
                 cmd.Parameters.Add("@Price", SqlDbType.Int).Value = newItem.Price;
                 cmd.Parameters.Add("@Photo", SqlDbType.VarBinary).Value = newItem.Photo;
                 cmd.CommandType = CommandType.Text;
@@ -126,7 +106,7 @@ namespace Project.Services
             return newItem;
         }
 
-        ItemModel ItemRepository.Delete(string itemId)
+        public ItemModel Delete(string itemId)
         {
             ItemModel it = ItemCondition("ID = \'" + itemId + "\'").First();
             sqlConnection.Open();

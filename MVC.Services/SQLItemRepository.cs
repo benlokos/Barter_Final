@@ -7,12 +7,12 @@ namespace Project.Services
 {
     public class SQLItemRepository : ItemRepository
     {
-        private readonly ManualItemRepo ManRepo;
+        private readonly ItemRepo ManRepo;
         private readonly AppDbContext Context;
         public SQLItemRepository(AppDbContext context)
         {
             Context = context;
-            ManRepo = new ManualItemRepo("server=10.12.227.17,1433;database=Barter_MVC;Persist Security Info=True;User ID=Admin;Password=p@ssw0d");
+            ManRepo = new ItemRepo("server=10.12.227.17,1433;database=Barter_MVC;Persist Security Info=True;User ID=Admin;Password=p@ssw0d");
         }
 
         public ItemModel Add(ItemModel newItem)

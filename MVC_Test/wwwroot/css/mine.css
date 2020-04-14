@@ -1,0 +1,54 @@
+﻿.search-box {
+    position: absolute;
+    top: 13%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #f9ca24;
+    height: 50px;
+    border-radius: 50px;
+    padding: 0px;
+}
+
+.search-btn{
+    color: #dff9fb;
+    float: right;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #f9ca24;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+}
+
+.search-txt {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: white;
+    font-size: 20px;
+    transition: 0.4s;
+    line-height: 30px;
+    
+     width: 0px; /* Uncomment this line and comment everything below to have  expansible searchbar 
+    
+    width: 340px;
+    padding-left: 26px;
+    padding-top: 8px;
+    */
+}
+
+.search-box:hover > .search-btn {
+    outline: 25px;
+    outline-color: white;
+    background: #ff00dc;
+}
+
+.search-box:hover > .search-txt {
+    width:340px;
+    padding-left: 26px;
+    padding-top: 8px;
+
+}

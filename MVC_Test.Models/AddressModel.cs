@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Project.Models
 {
-    public class AdressModel
+    public class AddressModel
     {
         public string ID { set; get; }
         public string FullName { set; get; }

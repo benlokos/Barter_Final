@@ -25,7 +25,7 @@ namespace MVC_Test.Controllers
         public IActionResult Index()
         {
             SearchModel model = new SearchModel();
-            model.Populate(Repo.GetAllItems(), Env);
+            model.Populate(new List<ItemModel>(), Env);
             return View(model);
         }
 
@@ -35,6 +35,7 @@ namespace MVC_Test.Controllers
             if (model == null) Console.WriteLine("HttpPost model is Null");
             Console.WriteLine($"SearchString is {model.SearchStr}");
             List<ItemModel> list = new List<ItemModel>();
+            
             foreach(ItemModel it in Repo.GetItemPriceRange(model.LowestPrice, model.HighestPrice)){
                 if (String.IsNullOrEmpty(model.SearchStr) || it.Name.IndexOf(model.SearchStr) >= 0)
                 {

@@ -17,7 +17,7 @@ namespace Project.Services
 
         public DbSet<ItemModel> Items { set; get; }
         public DbSet<TraderModel> Traders { set; get; }
-        public DbSet<AdressModel> Locations { set; get; }
+        public DbSet<AddressModel> Locations { set; get; }
         public DbSet<ReviewModel> Reviews { set; get; }
         public DbSet<TransactionModel> Transactions { set; get; }
         public DbSet<TagModel> Tags { set; get; }

@@ -44,7 +44,7 @@ namespace MVC_Test
             services.AddRazorPages();
             services.AddControllersWithViews();
             //services.AddScoped<ItemRepository, SQLItemRepository>();
-            services.AddScoped<ItemRepository, ManualItemRepo>(_ => new ManualItemRepo(Configuration.GetConnectionString("ItemDBConnection")));
+            services.AddScoped<ItemRepository, ItemRepo>(_ => new ItemRepo(Configuration.GetConnectionString("ItemDBConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
